@@ -41,7 +41,7 @@ body{
 }
 
 
-/* HEADER */
+/* ================= HEADER ================= */
 
 header{
     margin:22px 0;
@@ -64,27 +64,13 @@ header{
     gap:12px;
 }
 
-.logo-icon{
-    width:42px;
-    height:42px;
-
-    display:grid;
-    place-items:center;
-
-    border-radius:12px;
-
-    background:var(--teal);
-    color:white;
-
-    font-size:21px;
-    font-weight:bold;
+.logo-image{
+    width:52px;
+    height:52px;
+    object-fit:contain;
+    display:block;
 }
-.logo-image {
-    width: 52px;
-    height: 52px;
-    object-fit: contain;
-    display: block;
-}
+
 .logo h1{
     font-size:22px;
 }
@@ -107,13 +93,12 @@ header{
 .dot{
     width:8px;
     height:8px;
-
     border-radius:50%;
     background:#25a66a;
 }
 
 
-/* HERO */
+/* ================= HERO ================= */
 
 .hero{
     margin-top:20px;
@@ -204,7 +189,7 @@ header{
 }
 
 
-/* SECTION */
+/* ================= SECTION ================= */
 
 .section{
     margin-top:25px;
@@ -226,8 +211,14 @@ header{
     font-size:18px;
 }
 
+.section-description{
+    color:var(--muted);
+    font-size:12px;
+    margin-top:5px;
+}
 
-/* SENSOR CARDS */
+
+/* ================= SENSOR CARDS ================= */
 
 .cards{
     display:grid;
@@ -298,8 +289,78 @@ header{
     font-size:12px;
 }
 
+.source{
+    margin-top:9px;
+    color:var(--muted);
+    font-size:10px;
+}
 
-/* LOWER GRID */
+
+/* ================= INDOOR / OUTDOOR ================= */
+
+.environment-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+}
+
+.environment-card{
+    background:white;
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:22px;
+    box-shadow:var(--shadow);
+}
+
+.environment-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.environment-header h3{
+    font-size:17px;
+}
+
+.environment-header span{
+    color:var(--muted);
+    font-size:10px;
+}
+
+.environment-readings{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+    margin-top:18px;
+}
+
+.environment-reading{
+    padding:14px;
+    background:#f6f9f8;
+    border-radius:12px;
+}
+
+.environment-reading small{
+    display:block;
+    color:var(--muted);
+    font-size:10px;
+}
+
+.environment-reading strong{
+    display:block;
+    margin-top:5px;
+    font-size:22px;
+    font-weight:500;
+}
+
+.environment-reading em{
+    color:var(--muted);
+    font-size:11px;
+    font-style:normal;
+}
+
+
+/* ================= LOWER GRID ================= */
 
 .lower{
     display:grid;
@@ -308,11 +369,12 @@ header{
 }
 
 
-/* CHART */
+/* ================= CHART ================= */
 
 .chart-card,
 .weather-card,
-.device{
+.device,
+.history-card{
     background:white;
 
     border:1px solid var(--border);
@@ -358,7 +420,7 @@ header{
 }
 
 
-/* WEATHER */
+/* ================= WEATHER ================= */
 
 .weather-card{
     padding:22px;
@@ -388,15 +450,12 @@ header{
 .weather-details{
     display:grid;
     grid-template-columns:1fr 1fr;
-
     gap:13px;
-
     margin-top:25px;
 }
 
 .weather-detail{
     padding:13px;
-
     background:#f6f9f8;
     border-radius:12px;
 }
@@ -413,8 +472,115 @@ header{
     font-size:15px;
 }
 
+.weather-source{
+    margin-top:15px;
+    color:var(--muted);
+    font-size:10px;
+}
 
-/* DEVICE */
+
+/* ================= HISTORY ================= */
+
+.history{
+    margin-top:25px;
+}
+
+.history-card{
+    padding:22px;
+}
+
+.history-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+}
+
+.history-header h3{
+    font-size:18px;
+}
+
+.history-header p{
+    color:var(--muted);
+    font-size:11px;
+    margin-top:5px;
+}
+
+.history-status{
+    padding:7px 11px;
+    border-radius:20px;
+    background:var(--teal-light);
+    color:var(--teal);
+    font-size:10px;
+    white-space:nowrap;
+}
+
+.history-controls{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    margin-top:20px;
+}
+
+.history-btn{
+    border:1px solid var(--border);
+    background:white;
+    color:var(--muted);
+
+    padding:8px 13px;
+    border-radius:9px;
+
+    font-size:11px;
+    cursor:pointer;
+
+    transition:.2s;
+}
+
+.history-btn:hover{
+    border-color:var(--teal);
+    color:var(--teal);
+}
+
+.history-btn.active{
+    background:var(--teal);
+    border-color:var(--teal);
+    color:white;
+}
+
+.history-chart{
+    width:100%;
+    height:270px;
+    margin-top:15px;
+}
+
+.history-chart svg{
+    width:100%;
+    height:100%;
+}
+
+.chart-axis{
+    display:flex;
+    justify-content:space-between;
+    color:var(--muted);
+    font-size:9px;
+    margin-top:-5px;
+}
+
+.history-info{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    margin-top:15px;
+    padding-top:14px;
+
+    border-top:1px solid var(--border);
+
+    color:var(--muted);
+    font-size:10px;
+}
+
+
+/* ================= DEVICE ================= */
 
 .device{
     margin-top:16px;
@@ -446,7 +612,7 @@ header{
 }
 
 
-/* FOOTER */
+/* ================= FOOTER ================= */
 
 footer{
     padding:25px 0;
@@ -459,7 +625,7 @@ footer{
 }
 
 
-/* RESPONSIVE */
+/* ================= RESPONSIVE ================= */
 
 @media(max-width:900px){
 
@@ -471,9 +637,30 @@ footer{
         grid-template-columns:1fr;
     }
 
+    .environment-grid{
+        grid-template-columns:1fr;
+    }
+
 }
 
 @media(max-width:600px){
+
+    header{
+        padding:14px 16px;
+    }
+
+    .logo-image{
+        width:46px;
+        height:46px;
+    }
+
+    .logo h1{
+        font-size:19px;
+    }
+
+    .status{
+        font-size:10px;
+    }
 
     .hero{
         padding:25px;
@@ -504,10 +691,20 @@ footer{
         font-size:22px;
     }
 
+    .environment-readings{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .history-header{
+        flex-direction:column;
+        gap:12px;
+    }
+
     footer{
         flex-direction:column;
         gap:6px;
     }
+
 }
 
 </style>
@@ -518,26 +715,46 @@ footer{
 
 <div class="container">
 
+
+<!-- ================= HEADER ================= -->
+
 <header>
 
     <div class="logo">
 
-<img src="./logo.png" alt="RutuVedh Logo" class="logo-image">        <div>
+        <img
+            src="./logo.png"
+            alt="RutuVedh Logo"
+            class="logo-image"
+        >
+
+        <div>
+
             <h1>RutuVedh</h1>
-            <p>Smart Local Environment & Micro-Weather</p>
+
+            <p>
+                Smart Local Environment & Micro-Weather
+            </p>
+
         </div>
 
     </div>
 
+
     <div class="status">
+
         <span class="dot"></span>
-        <span>ESP32 • Demo Mode</span>
+
+        <span>
+            ESP32 • Demo Mode
+        </span>
+
     </div>
 
 </header>
 
 
-<!-- CURRENT ENVIRONMENT -->
+<!-- ================= HERO ================= -->
 
 <section class="hero">
 
@@ -547,19 +764,31 @@ footer{
             LOCAL ENVIRONMENT
         </div>
 
-        <h2>Current Conditions</h2>
+        <h2>
+            Current Conditions
+        </h2>
 
         <p>
             Environmental readings from the local sensor system
         </p>
 
         <div class="temperature">
-            <span id="heroTemp">27.4</span>
-            <span>°C</span>
+
+            <span id="heroTemp">
+                27.4
+            </span>
+
+            <span>
+                °C
+            </span>
+
         </div>
 
         <p>
-            Updated <span id="time">--:--</span>
+            Updated
+            <span id="time">
+                --:--
+            </span>
         </p>
 
     </div>
@@ -568,8 +797,15 @@ footer{
     <div class="weather-circle">
 
         <div>
-            <strong>27.4°C</strong>
-            <small>Temperature</small>
+
+            <strong id="heroCircleTemp">
+                27.4°C
+            </strong>
+
+            <small>
+                Indoor Temperature
+            </small>
+
         </div>
 
     </div>
@@ -577,14 +813,19 @@ footer{
 </section>
 
 
-<!-- SENSOR READINGS -->
+<!-- ================= SENSOR READINGS ================= -->
 
 <section class="section">
 
     <div class="section-title">
 
-        <span>LIVE DATA</span>
-        <h3>Environmental Readings</h3>
+        <span>
+            LIVE DATA
+        </span>
+
+        <h3>
+            Environmental Readings
+        </h3>
 
     </div>
 
@@ -592,73 +833,133 @@ footer{
     <div class="cards">
 
 
+        <!-- INDOOR TEMPERATURE -->
+
         <div class="card">
 
             <div class="card-top">
 
-                <div class="icon temp-icon">°</div>
+                <div class="icon temp-icon">
+                    °
+                </div>
 
-                Temperature
+                Indoor Temperature
 
             </div>
 
             <div class="value">
-                <span id="temp">27.4</span>
-                <span class="unit">°C</span>
+
+                <span id="indoorTemp">
+                    27.4
+                </span>
+
+                <span class="unit">
+                    °C
+                </span>
+
+            </div>
+
+            <div class="source">
+                BME280
             </div>
 
         </div>
 
 
+        <!-- INDOOR HUMIDITY -->
+
         <div class="card">
 
             <div class="card-top">
 
-                <div class="icon humidity-icon">%</div>
+                <div class="icon humidity-icon">
+                    %
+                </div>
 
-                Humidity
+                Indoor Humidity
 
             </div>
 
             <div class="value">
-                <span id="humidity">62</span>
-                <span class="unit">%</span>
+
+                <span id="indoorHumidity">
+                    62
+                </span>
+
+                <span class="unit">
+                    %
+                </span>
+
+            </div>
+
+            <div class="source">
+                BME280
             </div>
 
         </div>
 
 
+        <!-- PRESSURE -->
+
         <div class="card">
 
             <div class="card-top">
 
-                <div class="icon pressure-icon">P</div>
+                <div class="icon pressure-icon">
+                    P
+                </div>
 
                 Pressure
 
             </div>
 
             <div class="value">
-                <span id="pressure">1008</span>
-                <span class="unit">hPa</span>
+
+                <span id="pressure">
+                    1008
+                </span>
+
+                <span class="unit">
+                    hPa
+                </span>
+
+            </div>
+
+            <div class="source">
+                BME280
             </div>
 
         </div>
 
 
+        <!-- ALTITUDE -->
+
         <div class="card">
 
             <div class="card-top">
 
-                <div class="icon altitude-icon">↕</div>
+                <div class="icon altitude-icon">
+                    ↕
+                </div>
 
                 Altitude
 
             </div>
 
             <div class="value">
-                <span id="altitude">560</span>
-                <span class="unit">m</span>
+
+                <span id="altitude">
+                    560
+                </span>
+
+                <span class="unit">
+                    m
+                </span>
+
+            </div>
+
+            <div class="source">
+                BME280
             </div>
 
         </div>
@@ -669,24 +970,193 @@ footer{
 </section>
 
 
-<!-- GRAPH + WEATHER -->
+<!-- ================= INDOOR / OUTDOOR ================= -->
+
+<section class="section">
+
+    <div class="section-title">
+
+        <span>
+            ENVIRONMENT
+        </span>
+
+        <h3>
+            Indoor & Outdoor Conditions
+        </h3>
+
+        <p class="section-description">
+            Local sensor readings and external weather information
+        </p>
+
+    </div>
+
+
+    <div class="environment-grid">
+
+
+        <!-- INDOOR -->
+
+        <div class="environment-card">
+
+            <div class="environment-header">
+
+                <h3>
+                    Indoor
+                </h3>
+
+                <span>
+                    BME280
+                </span>
+
+            </div>
+
+
+            <div class="environment-readings">
+
+                <div class="environment-reading">
+
+                    <small>
+                        Temperature
+                    </small>
+
+                    <strong>
+                        <span id="indoorTempLarge">
+                            27.4
+                        </span>
+
+                        <em>
+                            °C
+                        </em>
+                    </strong>
+
+                </div>
+
+
+                <div class="environment-reading">
+
+                    <small>
+                        Humidity
+                    </small>
+
+                    <strong>
+                        <span id="indoorHumidityLarge">
+                            62
+                        </span>
+
+                        <em>
+                            %
+                        </em>
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- OUTDOOR -->
+
+        <div class="environment-card">
+
+            <div class="environment-header">
+
+                <h3>
+                    Outdoor
+                </h3>
+
+                <span>
+                    OpenWeatherMap
+                </span>
+
+            </div>
+
+
+            <div class="environment-readings">
+
+                <div class="environment-reading">
+
+                    <small>
+                        Temperature
+                    </small>
+
+                    <strong>
+                        <span id="outdoorTemp">
+                            28.0
+                        </span>
+
+                        <em>
+                            °C
+                        </em>
+                    </strong>
+
+                </div>
+
+
+                <div class="environment-reading">
+
+                    <small>
+                        Humidity
+                    </small>
+
+                    <strong>
+                        <span id="outdoorHumidity">
+                            64
+                        </span>
+
+                        <em>
+                            %
+                        </em>
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- ================= GRAPH + WEATHER ================= -->
 
 <section class="section lower">
 
+
+    <!-- QUICK TEMPERATURE GRAPH -->
 
     <div class="chart-card">
 
         <div class="chart-head">
 
             <div>
-                <h3>Temperature Trend</h3>
-                <p>Recent sensor readings</p>
+
+                <h3>
+                    Temperature Trend
+                </h3>
+
+                <p>
+                    Recent indoor sensor readings
+                </p>
+
             </div>
 
         </div>
 
+
         <div class="chart-value">
-            27.4 <small>°C</small>
+
+            <span id="quickChartValue">
+                27.4
+            </span>
+
+            <small>
+                °C
+            </small>
+
         </div>
 
 
@@ -746,12 +1216,19 @@ footer{
     </div>
 
 
+    <!-- WEATHER -->
+
     <div class="weather-card">
 
         <div class="section-title">
 
-            <span>WEATHER</span>
-            <h3>Current Weather</h3>
+            <span>
+                WEATHER
+            </span>
+
+            <h3>
+                Current Weather
+            </h3>
 
         </div>
 
@@ -760,11 +1237,15 @@ footer{
 
             <div>
 
-                <strong>Clear Sky</strong>
+                <strong id="weatherCondition">
+                    Clear Sky
+                </strong>
 
                 <br>
 
-                <span>External weather information</span>
+                <span>
+                    External weather information
+                </span>
 
             </div>
 
@@ -777,41 +1258,70 @@ footer{
 
         <div class="weather-details">
 
+
             <div class="weather-detail">
 
-                <small>Temperature</small>
+                <small>
+                    Outdoor Temperature
+                </small>
 
-                <strong>28 °C</strong>
+                <strong>
+                    <span id="weatherTemp">
+                        28
+                    </span>
+                    °C
+                </strong>
 
             </div>
 
 
             <div class="weather-detail">
 
-                <small>Humidity</small>
+                <small>
+                    Outdoor Humidity
+                </small>
 
-                <strong>64 %</strong>
-
-            </div>
-
-
-            <div class="weather-detail">
-
-                <small>Sunrise</small>
-
-                <strong>06:12 AM</strong>
+                <strong>
+                    <span id="weatherHumidity">
+                        64
+                    </span>
+                    %
+                </strong>
 
             </div>
 
 
             <div class="weather-detail">
 
-                <small>Sunset</small>
+                <small>
+                    Sunrise
+                </small>
 
-                <strong>06:28 PM</strong>
+                <strong id="sunrise">
+                    06:12 AM
+                </strong>
 
             </div>
 
+
+            <div class="weather-detail">
+
+                <small>
+                    Sunset
+                </small>
+
+                <strong id="sunset">
+                    06:28 PM
+                </strong>
+
+            </div>
+
+
+        </div>
+
+
+        <div class="weather-source">
+            Source: OpenWeatherMap API
         </div>
 
     </div>
@@ -820,15 +1330,119 @@ footer{
 </section>
 
 
-<!-- DEVICE -->
+<!-- ================= ENVIRONMENT HISTORY ================= -->
+
+<section class="history">
+
+    <div class="history-card">
+
+        <div class="history-header">
+
+            <div>
+
+                <h3>
+                    Environmental History
+                </h3>
+
+                <p>
+                    One stored observation every hour
+                </p>
+
+            </div>
+
+            <div class="history-status">
+                1 point / hour
+            </div>
+
+        </div>
+
+
+        <!-- GRAPH SWITCH -->
+
+        <div class="history-controls">
+
+            <button
+                class="history-btn active"
+                data-metric="temperature"
+            >
+                Temperature
+            </button>
+
+            <button
+                class="history-btn"
+                data-metric="humidity"
+            >
+                Humidity
+            </button>
+
+            <button
+                class="history-btn"
+                data-metric="pressure"
+            >
+                Pressure
+            </button>
+
+            <button
+                class="history-btn"
+                data-metric="altitude"
+            >
+                Altitude
+            </button>
+
+        </div>
+
+
+        <!-- GRAPH -->
+
+        <div class="history-chart">
+
+            <svg
+                id="historyChart"
+                viewBox="0 0 800 300"
+                preserveAspectRatio="none"
+            >
+
+            </svg>
+
+        </div>
+
+
+        <div
+            class="chart-axis"
+            id="chartAxis"
+        ></div>
+
+
+        <div class="history-info">
+
+            <span id="historyDescription">
+                Hourly indoor BME280 readings
+            </span>
+
+            <span>
+                Stored locally • Demo Mode
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= DEVICE ================= -->
 
 <div class="device">
 
     <div>
 
-        <h3>ESP32 Sensor Node</h3>
+        <h3>
+            ESP32 Sensor Node
+        </h3>
 
-        <p>BME280 environmental sensing unit</p>
+        <p>
+            BME280 environmental sensing unit
+        </p>
 
     </div>
 
@@ -843,11 +1457,17 @@ footer{
 </div>
 
 
+<!-- ================= FOOTER ================= -->
+
 <footer>
 
-    <span>RutuVedh © 2026</span>
+    <span>
+        RutuVedh © 2026
+    </span>
 
-    <span>Smart Local Environment & Micro-Weather System</span>
+    <span>
+        Smart Local Environment & Micro-Weather System
+    </span>
 
 </footer>
 
@@ -856,6 +1476,10 @@ footer{
 
 
 <script>
+
+/* =====================================================
+   CLOCK
+===================================================== */
 
 function updateTime(){
 
@@ -874,30 +1498,47 @@ updateTime();
 setInterval(updateTime,1000);
 
 
-/*
-    DEMO DATA
-
-    These values will later be replaced by
-    real ESP32 + BME280 readings.
-*/
+/* =====================================================
+   DEMO SENSOR DATA
+===================================================== */
 
 const sensorData = {
 
     temperature:27.4,
+
     humidity:62,
+
     pressure:1008,
-    altitude:560
+
+    altitude:560,
+
+    outdoorTemperature:28.0,
+
+    outdoorHumidity:64,
+
+    weather:"Clear Sky",
+
+    sunrise:"06:12 AM",
+
+    sunset:"06:28 PM"
 
 };
 
 
+/* =====================================================
+   UPDATE LIVE VALUES
+===================================================== */
+
 document.getElementById("heroTemp").textContent =
     sensorData.temperature.toFixed(1);
 
-document.getElementById("temp").textContent =
+document.getElementById("heroCircleTemp").textContent =
+    sensorData.temperature.toFixed(1) + "°C";
+
+document.getElementById("indoorTemp").textContent =
     sensorData.temperature.toFixed(1);
 
-document.getElementById("humidity").textContent =
+document.getElementById("indoorHumidity").textContent =
     sensorData.humidity;
 
 document.getElementById("pressure").textContent =
@@ -905,6 +1546,468 @@ document.getElementById("pressure").textContent =
 
 document.getElementById("altitude").textContent =
     sensorData.altitude;
+
+document.getElementById("indoorTempLarge").textContent =
+    sensorData.temperature.toFixed(1);
+
+document.getElementById("indoorHumidityLarge").textContent =
+    sensorData.humidity;
+
+document.getElementById("outdoorTemp").textContent =
+    sensorData.outdoorTemperature.toFixed(1);
+
+document.getElementById("outdoorHumidity").textContent =
+    sensorData.outdoorHumidity;
+
+document.getElementById("weatherTemp").textContent =
+    sensorData.outdoorTemperature.toFixed(1);
+
+document.getElementById("weatherHumidity").textContent =
+    sensorData.outdoorHumidity;
+
+document.getElementById("weatherCondition").textContent =
+    sensorData.weather;
+
+document.getElementById("sunrise").textContent =
+    sensorData.sunrise;
+
+document.getElementById("sunset").textContent =
+    sensorData.sunset;
+
+document.getElementById("quickChartValue").textContent =
+    sensorData.temperature.toFixed(1);
+
+
+/* =====================================================
+   HOURLY HISTORY STORAGE
+===================================================== */
+
+const STORAGE_KEY =
+    "rutuvvedh_hourly_environment_history";
+
+
+const demoHistory = [
+
+    {
+        time:"08:00",
+        temperature:27.1,
+        humidity:61,
+        pressure:1008.2,
+        altitude:560
+    },
+
+    {
+        time:"09:00",
+        temperature:27.8,
+        humidity:60,
+        pressure:1008.0,
+        altitude:560
+    },
+
+    {
+        time:"10:00",
+        temperature:28.6,
+        humidity:58,
+        pressure:1007.7,
+        altitude:560
+    },
+
+    {
+        time:"11:00",
+        temperature:29.4,
+        humidity:56,
+        pressure:1007.4,
+        altitude:560
+    },
+
+    {
+        time:"12:00",
+        temperature:30.1,
+        humidity:54,
+        pressure:1007.1,
+        altitude:560
+    },
+
+    {
+        time:"13:00",
+        temperature:30.4,
+        humidity:53,
+        pressure:1006.8,
+        altitude:560
+    }
+
+];
+
+
+function getHistory(){
+
+    const stored =
+        localStorage.getItem(STORAGE_KEY);
+
+    if(stored){
+
+        return JSON.parse(stored);
+
+    }
+
+    localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(demoHistory)
+    );
+
+    return demoHistory;
+
+}
+
+
+/* =====================================================
+   SAVE ONE HOURLY OBSERVATION
+===================================================== */
+
+function saveHourlyReading(){
+
+    const now = new Date();
+
+    const reading = {
+
+        time:now.toLocaleTimeString(
+            "en-IN",
+            {
+                hour:"2-digit",
+                minute:"2-digit",
+                hour12:false
+            }
+        ),
+
+        temperature:
+            sensorData.temperature,
+
+        humidity:
+            sensorData.humidity,
+
+        pressure:
+            sensorData.pressure,
+
+        altitude:
+            sensorData.altitude
+
+    };
+
+
+    const history =
+        getHistory();
+
+
+    history.push(reading);
+
+
+    /*
+       Keep latest 168 observations
+       = 7 days × 24 hours
+    */
+
+    const limitedHistory =
+        history.slice(-168);
+
+
+    localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(limitedHistory)
+    );
+
+
+    drawHistoryChart();
+
+}
+
+
+/* =====================================================
+   HISTORY CHART
+===================================================== */
+
+let selectedMetric =
+    "temperature";
+
+
+const metricInfo = {
+
+    temperature:{
+        title:"Temperature History",
+        description:
+            "Hourly indoor BME280 readings",
+        unit:"°C"
+    },
+
+    humidity:{
+        title:"Humidity History",
+        description:
+            "Hourly indoor BME280 readings",
+        unit:"%"
+    },
+
+    pressure:{
+        title:"Pressure History",
+        description:
+            "Hourly atmospheric pressure readings",
+        unit:"hPa"
+    },
+
+    altitude:{
+        title:"Altitude History",
+        description:
+            "Hourly altitude readings",
+        unit:"m"
+    }
+
+};
+
+
+function drawHistoryChart(){
+
+    const history =
+        getHistory();
+
+
+    const svg =
+        document.getElementById(
+            "historyChart"
+        );
+
+
+    const axis =
+        document.getElementById(
+            "chartAxis"
+        );
+
+
+    const description =
+        document.getElementById(
+            "historyDescription"
+        );
+
+
+    if(
+        !svg ||
+        !axis ||
+        !history.length
+    ){
+
+        return;
+
+    }
+
+
+    const info =
+        metricInfo[selectedMetric];
+
+
+    description.textContent =
+        info.description;
+
+
+    const values =
+        history.map(
+            item =>
+                Number(
+                    item[selectedMetric]
+                )
+        );
+
+
+    const width = 800;
+
+    const height = 300;
+
+    const padding = 35;
+
+
+    const min =
+        Math.min(...values);
+
+    const max =
+        Math.max(...values);
+
+
+    const range =
+        max - min || 1;
+
+
+    /*
+       Create graph points
+    */
+
+    const points =
+        values.map(
+            (value,index)=>{
+
+                const x =
+                    padding +
+                    (
+                        index /
+                        Math.max(
+                            values.length - 1,
+                            1
+                        )
+                    ) *
+                    (
+                        width -
+                        padding * 2
+                    );
+
+
+                const y =
+                    height -
+                    padding -
+                    (
+                        (
+                            value - min
+                        ) /
+                        range
+                    ) *
+                    (
+                        height -
+                        padding * 2
+                    );
+
+
+                return `${x},${y}`;
+
+            }
+        ).join(" ");
+
+
+    /*
+       Grid lines
+    */
+
+    svg.innerHTML = `
+
+        <line
+            x1="35"
+            y1="35"
+            x2="765"
+            y2="35"
+            stroke="#e7eeec"
+        />
+
+        <line
+            x1="35"
+            y1="115"
+            x2="765"
+            y2="115"
+            stroke="#e7eeec"
+        />
+
+        <line
+            x1="35"
+            y1="195"
+            x2="765"
+            y2="195"
+            stroke="#e7eeec"
+        />
+
+        <line
+            x1="35"
+            y1="265"
+            x2="765"
+            y2="265"
+            stroke="#e7eeec"
+        />
+
+        <polyline
+            points="${points}"
+            fill="none"
+            stroke="#147d78"
+            stroke-width="3"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+        />
+
+    `;
+
+
+    /*
+       Show time labels
+    */
+
+    const labelCount =
+        Math.min(
+            history.length,
+            8
+        );
+
+
+    const selectedLabels =
+        history.slice(-labelCount);
+
+
+    axis.innerHTML =
+        selectedLabels
+            .map(
+                item =>
+                    `<span>${item.time}</span>`
+            )
+            .join("");
+
+}
+
+
+/* =====================================================
+   HISTORY BUTTONS
+===================================================== */
+
+document
+    .querySelectorAll(".history-btn")
+    .forEach(button => {
+
+        button.addEventListener(
+            "click",
+            ()=>{
+
+                document
+                    .querySelectorAll(
+                        ".history-btn"
+                    )
+                    .forEach(
+                        btn =>
+                            btn.classList
+                                .remove("active")
+                    );
+
+
+                button.classList
+                    .add("active");
+
+
+                selectedMetric =
+                    button.dataset.metric;
+
+
+                drawHistoryChart();
+
+            }
+        );
+
+    });
+
+
+/* =====================================================
+   INITIAL GRAPH
+===================================================== */
+
+drawHistoryChart();
+
+
+/* =====================================================
+   DEMO HOURLY STORAGE
+
+   One observation every hour.
+===================================================== */
+
+setInterval(
+    saveHourlyReading,
+    60 * 60 * 1000
+);
 
 </script>
 
