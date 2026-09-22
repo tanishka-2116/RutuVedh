@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>RutuVedh | Environmental Dashboard</title>
+
+<style>
+
+:root{
+    --bg:#f4f8f7;
+    --card:#ffffff;
+    --text:#172b2a;
+    --muted:#70817f;
+    --teal:#147d78;
+    --teal-light:#dff2ef;
+    --blue:#397bd6;
+    --purple:#7757d8;
+    --gold:#d99f32;
+    --green:#39a66b;
+    --border:#e2ebe8;
+    --shadow:0 10px 30px rgba(25,55,50,.07);
+}
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Inter,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+}
+
+.container{
+    width:min(1200px,92%);
+    margin:auto;
+}
+
+
+/* HEADER */
+
+header{
+    margin:22px 0;
+    padding:17px 22px;
+
+    background:rgba(255,255,255,.92);
+    border:1px solid var(--border);
+    border-radius:18px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    box-shadow:var(--shadow);
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.logo-icon{
+    width:42px;
+    height:42px;
+
+    display:grid;
+    place-items:center;
+
+    border-radius:12px;
+
+    background:var(--teal);
+    color:white;
+
+    font-size:21px;
+    font-weight:bold;
+}
+
+.logo h1{
+    font-size:22px;
+}
+
+.logo p{
+    color:var(--muted);
+    font-size:11px;
+    margin-top:3px;
+}
+
+.status{
+    display:flex;
+    align-items:center;
+    gap:8px;
+
+    color:var(--muted);
+    font-size:12px;
+}
+
+.dot{
+    width:8px;
+    height:8px;
+
+    border-radius:50%;
+    background:#25a66a;
+}
+
+
+/* HERO */
+
+.hero{
+    margin-top:20px;
+
+    padding:34px;
+
+    background:
+        radial-gradient(
+            circle at 80% 20%,
+            rgba(77,174,166,.12),
+            transparent 35%
+        ),
+        white;
+
+    border:1px solid var(--border);
+    border-radius:24px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    box-shadow:var(--shadow);
+}
+
+.hero-label{
+    color:var(--teal);
+    font-size:11px;
+    font-weight:bold;
+    letter-spacing:2px;
+}
+
+.hero h2{
+    margin-top:10px;
+    font-size:30px;
+}
+
+.hero p{
+    margin-top:6px;
+    color:var(--muted);
+    font-size:13px;
+}
+
+.temperature{
+    margin-top:22px;
+    font-size:58px;
+    font-weight:500;
+    letter-spacing:-3px;
+}
+
+.temperature span{
+    font-size:20px;
+    color:var(--muted);
+    letter-spacing:0;
+}
+
+.weather-circle{
+    width:180px;
+    height:180px;
+
+    border-radius:50%;
+
+    display:grid;
+    place-items:center;
+
+    background:
+        radial-gradient(
+            circle,
+            white 52%,
+            #e0f2ef 53%,
+            #e0f2ef 64%,
+            white 65%
+        );
+
+    border:1px solid #dce9e6;
+}
+
+.weather-circle div{
+    text-align:center;
+}
+
+.weather-circle strong{
+    display:block;
+    font-size:28px;
+}
+
+.weather-circle small{
+    color:var(--muted);
+}
+
+
+/* SECTION */
+
+.section{
+    margin-top:25px;
+}
+
+.section-title{
+    margin-bottom:12px;
+}
+
+.section-title span{
+    color:var(--teal);
+    font-size:10px;
+    font-weight:bold;
+    letter-spacing:1.7px;
+}
+
+.section-title h3{
+    margin-top:4px;
+    font-size:18px;
+}
+
+
+/* SENSOR CARDS */
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:14px;
+}
+
+.card{
+    background:var(--card);
+
+    border:1px solid var(--border);
+    border-radius:17px;
+
+    padding:20px;
+
+    box-shadow:var(--shadow);
+}
+
+.card-top{
+    display:flex;
+    align-items:center;
+    gap:9px;
+
+    color:var(--muted);
+    font-size:12px;
+}
+
+.icon{
+    width:31px;
+    height:31px;
+
+    display:grid;
+    place-items:center;
+
+    border-radius:9px;
+
+    font-weight:bold;
+}
+
+.temp-icon{
+    background:#ffe9e6;
+    color:#e35d4e;
+}
+
+.humidity-icon{
+    background:#e4efff;
+    color:var(--blue);
+}
+
+.pressure-icon{
+    background:#eee8ff;
+    color:var(--purple);
+}
+
+.altitude-icon{
+    background:#e3f4e9;
+    color:var(--green);
+}
+
+.value{
+    margin-top:22px;
+    font-size:28px;
+    font-weight:500;
+}
+
+.unit{
+    color:var(--muted);
+    font-size:12px;
+}
+
+
+/* LOWER GRID */
+
+.lower{
+    display:grid;
+    grid-template-columns:1.55fr 1fr;
+    gap:16px;
+}
+
+
+/* CHART */
+
+.chart-card,
+.weather-card,
+.device{
+    background:white;
+
+    border:1px solid var(--border);
+    border-radius:18px;
+
+    box-shadow:var(--shadow);
+}
+
+.chart-card{
+    padding:22px;
+}
+
+.chart-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.chart-head h3{
+    font-size:17px;
+}
+
+.chart-head p{
+    color:var(--muted);
+    font-size:11px;
+    margin-top:4px;
+}
+
+.chart-value{
+    margin-top:17px;
+    font-size:25px;
+}
+
+.chart-value small{
+    color:var(--muted);
+    font-size:12px;
+}
+
+.chart{
+    width:100%;
+    height:190px;
+    margin-top:10px;
+}
+
+
+/* WEATHER */
+
+.weather-card{
+    padding:22px;
+}
+
+.weather-main{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    margin-top:18px;
+}
+
+.weather-main strong{
+    font-size:25px;
+}
+
+.weather-main span{
+    color:var(--muted);
+    font-size:12px;
+}
+
+.weather-icon{
+    font-size:42px;
+}
+
+.weather-details{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+
+    gap:13px;
+
+    margin-top:25px;
+}
+
+.weather-detail{
+    padding:13px;
+
+    background:#f6f9f8;
+    border-radius:12px;
+}
+
+.weather-detail small{
+    display:block;
+    color:var(--muted);
+    font-size:10px;
+}
+
+.weather-detail strong{
+    display:block;
+    margin-top:5px;
+    font-size:15px;
+}
+
+
+/* DEVICE */
+
+.device{
+    margin-top:16px;
+
+    padding:18px 22px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.device h3{
+    font-size:15px;
+}
+
+.device p{
+    margin-top:4px;
+    color:var(--muted);
+    font-size:11px;
+}
+
+.device-right{
+    display:flex;
+    align-items:center;
+    gap:7px;
+
+    color:var(--teal);
+    font-size:12px;
+}
+
+
+/* FOOTER */
+
+footer{
+    padding:25px 0;
+
+    display:flex;
+    justify-content:space-between;
+
+    color:var(--muted);
+    font-size:10px;
+}
+
+
+/* RESPONSIVE */
+
+@media(max-width:900px){
+
+    .cards{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .lower{
+        grid-template-columns:1fr;
+    }
+
+}
+
+@media(max-width:600px){
+
+    .hero{
+        padding:25px;
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .weather-circle{
+        width:130px;
+        height:130px;
+        margin-top:20px;
+        align-self:center;
+    }
+
+    .temperature{
+        font-size:48px;
+    }
+
+    .cards{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .card{
+        padding:15px;
+    }
+
+    .value{
+        font-size:22px;
+    }
+
+    footer{
+        flex-direction:column;
+        gap:6px;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div class="container">
+
+<header>
+
+    <div class="logo">
+
+        <div class="logo-icon">ऋ</div>
+
+        <div>
+            <h1>RutuVedh</h1>
+            <p>Smart Local Environment & Micro-Weather</p>
+        </div>
+
+    </div>
+
+    <div class="status">
+        <span class="dot"></span>
+        <span>ESP32 • Demo Mode</span>
+    </div>
+
+</header>
+
+
+<!-- CURRENT ENVIRONMENT -->
+
+<section class="hero">
+
+    <div>
+
+        <div class="hero-label">
+            LOCAL ENVIRONMENT
+        </div>
+
+        <h2>Current Conditions</h2>
+
+        <p>
+            Environmental readings from the local sensor system
+        </p>
+
+        <div class="temperature">
+            <span id="heroTemp">27.4</span>
+            <span>°C</span>
+        </div>
+
+        <p>
+            Updated <span id="time">--:--</span>
+        </p>
+
+    </div>
+
+
+    <div class="weather-circle">
+
+        <div>
+            <strong>27.4°C</strong>
+            <small>Temperature</small>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- SENSOR READINGS -->
+
+<section class="section">
+
+    <div class="section-title">
+
+        <span>LIVE DATA</span>
+        <h3>Environmental Readings</h3>
+
+    </div>
+
+
+    <div class="cards">
+
+
+        <div class="card">
+
+            <div class="card-top">
+
+                <div class="icon temp-icon">°</div>
+
+                Temperature
+
+            </div>
+
+            <div class="value">
+                <span id="temp">27.4</span>
+                <span class="unit">°C</span>
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-top">
+
+                <div class="icon humidity-icon">%</div>
+
+                Humidity
+
+            </div>
+
+            <div class="value">
+                <span id="humidity">62</span>
+                <span class="unit">%</span>
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-top">
+
+                <div class="icon pressure-icon">P</div>
+
+                Pressure
+
+            </div>
+
+            <div class="value">
+                <span id="pressure">1008</span>
+                <span class="unit">hPa</span>
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-top">
+
+                <div class="icon altitude-icon">↕</div>
+
+                Altitude
+
+            </div>
+
+            <div class="value">
+                <span id="altitude">560</span>
+                <span class="unit">m</span>
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- GRAPH + WEATHER -->
+
+<section class="section lower">
+
+
+    <div class="chart-card">
+
+        <div class="chart-head">
+
+            <div>
+                <h3>Temperature Trend</h3>
+                <p>Recent sensor readings</p>
+            </div>
+
+        </div>
+
+        <div class="chart-value">
+            27.4 <small>°C</small>
+        </div>
+
+
+        <svg
+            class="chart"
+            viewBox="0 0 800 190"
+            preserveAspectRatio="none"
+        >
+
+            <line
+                x1="0"
+                y1="150"
+                x2="800"
+                y2="150"
+                stroke="#e7eeec"
+            />
+
+            <line
+                x1="0"
+                y1="95"
+                x2="800"
+                y2="95"
+                stroke="#e7eeec"
+            />
+
+            <line
+                x1="0"
+                y1="40"
+                x2="800"
+                y2="40"
+                stroke="#e7eeec"
+            />
+
+            <polyline
+                points="
+                0,135
+                80,128
+                160,135
+                240,108
+                320,120
+                400,82
+                480,96
+                560,65
+                640,83
+                720,70
+                800,75
+                "
+                fill="none"
+                stroke="#147d78"
+                stroke-width="4"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            />
+
+        </svg>
+
+    </div>
+
+
+    <div class="weather-card">
+
+        <div class="section-title">
+
+            <span>WEATHER</span>
+            <h3>Current Weather</h3>
+
+        </div>
+
+
+        <div class="weather-main">
+
+            <div>
+
+                <strong>Clear Sky</strong>
+
+                <br>
+
+                <span>External weather information</span>
+
+            </div>
+
+            <div class="weather-icon">
+                ☀
+            </div>
+
+        </div>
+
+
+        <div class="weather-details">
+
+            <div class="weather-detail">
+
+                <small>Temperature</small>
+
+                <strong>28 °C</strong>
+
+            </div>
+
+
+            <div class="weather-detail">
+
+                <small>Humidity</small>
+
+                <strong>64 %</strong>
+
+            </div>
+
+
+            <div class="weather-detail">
+
+                <small>Sunrise</small>
+
+                <strong>06:12 AM</strong>
+
+            </div>
+
+
+            <div class="weather-detail">
+
+                <small>Sunset</small>
+
+                <strong>06:28 PM</strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+</section>
+
+
+<!-- DEVICE -->
+
+<div class="device">
+
+    <div>
+
+        <h3>ESP32 Sensor Node</h3>
+
+        <p>BME280 environmental sensing unit</p>
+
+    </div>
+
+    <div class="device-right">
+
+        <span class="dot"></span>
+
+        Ready
+
+    </div>
+
+</div>
+
+
+<footer>
+
+    <span>RutuVedh © 2026</span>
+
+    <span>Smart Local Environment & Micro-Weather System</span>
+
+</footer>
+
+
+</div>
+
+
+<script>
+
+function updateTime(){
+
+    const now = new Date();
+
+    document.getElementById("time").textContent =
+        now.toLocaleTimeString([], {
+            hour:"2-digit",
+            minute:"2-digit"
+        });
+
+}
+
+updateTime();
+
+setInterval(updateTime,1000);
+
+
+/*
+    DEMO DATA
+
+    These values will later be replaced by
+    real ESP32 + BME280 readings.
+*/
+
+const sensorData = {
+
+    temperature:27.4,
+    humidity:62,
+    pressure:1008,
+    altitude:560
+
+};
+
+
+document.getElementById("heroTemp").textContent =
+    sensorData.temperature.toFixed(1);
+
+document.getElementById("temp").textContent =
+    sensorData.temperature.toFixed(1);
+
+document.getElementById("humidity").textContent =
+    sensorData.humidity;
+
+document.getElementById("pressure").textContent =
+    sensorData.pressure;
+
+document.getElementById("altitude").textContent =
+    sensorData.altitude;
+
+</script>
+
+</body>
+</html>
