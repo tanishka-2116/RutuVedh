@@ -514,38 +514,6 @@ header{
     white-space:nowrap;
 }
 
-.history-controls{
-    display:flex;
-    gap:8px;
-    flex-wrap:wrap;
-    margin-top:20px;
-}
-
-.history-btn{
-    border:1px solid var(--border);
-    background:white;
-    color:var(--muted);
-
-    padding:8px 13px;
-    border-radius:9px;
-
-    font-size:11px;
-    cursor:pointer;
-
-    transition:.2s;
-}
-
-.history-btn:hover{
-    border-color:var(--teal);
-    color:var(--teal);
-}
-
-.history-btn.active{
-    background:var(--teal);
-    border-color:var(--teal);
-    color:white;
-}
-
 .history-chart{
     width:100%;
     height:270px;
@@ -569,14 +537,71 @@ header{
     display:flex;
     justify-content:space-between;
     align-items:center;
-
     margin-top:15px;
     padding-top:14px;
-
     border-top:1px solid var(--border);
-
     color:var(--muted);
     font-size:10px;
+}
+
+
+/* ================= COMBINED HISTORY GRAPH ================= */
+
+.history-legend{
+    display:flex;
+    align-items:center;
+    gap:20px;
+    flex-wrap:wrap;
+    margin-top:18px;
+    padding:12px 14px;
+    background:#f6f9f8;
+    border-radius:12px;
+}
+
+.legend-item{
+    display:flex;
+    align-items:center;
+    gap:7px;
+    color:var(--muted);
+    font-size:10px;
+}
+
+.legend-dot{
+    width:9px;
+    height:9px;
+    border-radius:50%;
+    display:inline-block;
+}
+
+.temperature-dot{background:#147d78;}
+.humidity-dot{background:#397bd6;}
+.pressure-dot{background:#7757d8;}
+.altitude-dot{background:#39a66b;}
+
+.history-values{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:10px;
+    margin-top:18px;
+}
+
+.history-values div{
+    padding:12px;
+    background:#f6f9f8;
+    border-radius:11px;
+}
+
+.history-values small{
+    display:block;
+    color:var(--muted);
+    font-size:9px;
+}
+
+.history-values strong{
+    display:block;
+    margin-top:5px;
+    font-size:14px;
+    font-weight:500;
 }
 
 
@@ -697,6 +722,14 @@ footer{
 
     .history-header{
         flex-direction:column;
+        gap:12px;
+    }
+
+    .history-values{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .history-legend{
         gap:12px;
     }
 
@@ -1339,15 +1372,11 @@ footer{
         <div class="history-header">
 
             <div>
-
-                <h3>
-                    Environmental History
-                </h3>
+                <h3>Environmental History</h3>
 
                 <p>
-                    One stored observation every hour
+                    Hourly recorded readings from the RutuVedh sensor system
                 </p>
-
             </div>
 
             <div class="history-status">
@@ -1357,42 +1386,30 @@ footer{
         </div>
 
 
-        <!-- GRAPH SWITCH -->
+        <div class="history-legend">
 
-        <div class="history-controls">
-
-            <button
-                class="history-btn active"
-                data-metric="temperature"
-            >
+            <div class="legend-item">
+                <span class="legend-dot temperature-dot"></span>
                 Temperature
-            </button>
+            </div>
 
-            <button
-                class="history-btn"
-                data-metric="humidity"
-            >
+            <div class="legend-item">
+                <span class="legend-dot humidity-dot"></span>
                 Humidity
-            </button>
+            </div>
 
-            <button
-                class="history-btn"
-                data-metric="pressure"
-            >
+            <div class="legend-item">
+                <span class="legend-dot pressure-dot"></span>
                 Pressure
-            </button>
+            </div>
 
-            <button
-                class="history-btn"
-                data-metric="altitude"
-            >
+            <div class="legend-item">
+                <span class="legend-dot altitude-dot"></span>
                 Altitude
-            </button>
+            </div>
 
         </div>
 
-
-        <!-- GRAPH -->
 
         <div class="history-chart">
 
@@ -1400,9 +1417,7 @@ footer{
                 id="historyChart"
                 viewBox="0 0 800 300"
                 preserveAspectRatio="none"
-            >
-
-            </svg>
+            ></svg>
 
         </div>
 
@@ -1413,10 +1428,35 @@ footer{
         ></div>
 
 
+        <div class="history-values">
+
+            <div>
+                <small>Temperature</small>
+                <strong id="historyTemp">30.4 °C</strong>
+            </div>
+
+            <div>
+                <small>Humidity</small>
+                <strong id="historyHumidity">53 %</strong>
+            </div>
+
+            <div>
+                <small>Pressure</small>
+                <strong id="historyPressure">1006.8 hPa</strong>
+            </div>
+
+            <div>
+                <small>Altitude</small>
+                <strong id="historyAltitude">560 m</strong>
+            </div>
+
+        </div>
+
+
         <div class="history-info">
 
-            <span id="historyDescription">
-                Hourly indoor BME280 readings
+            <span>
+                Each point represents one hourly observation
             </span>
 
             <span>
@@ -1722,122 +1762,137 @@ function saveHourlyReading(){
 
 
 /* =====================================================
-   HISTORY CHART
+   COMBINED ENVIRONMENTAL HISTORY
 ===================================================== */
 
-let selectedMetric =
-    "temperature";
+function normalizeValues(values){
+
+    const min = Math.min(...values);
+    const max = Math.max(...values);
+    const range = max - min || 1;
+
+    return values.map(
+        value => (value - min) / range
+    );
+}
 
 
-const metricInfo = {
+/* =====================================================
+   SAVE ONE HOURLY OBSERVATION
+===================================================== */
 
-    temperature:{
-        title:"Temperature History",
-        description:
-            "Hourly indoor BME280 readings",
-        unit:"°C"
-    },
+function saveHourlyReading(){
 
-    humidity:{
-        title:"Humidity History",
-        description:
-            "Hourly indoor BME280 readings",
-        unit:"%"
-    },
+    const now = new Date();
 
-    pressure:{
-        title:"Pressure History",
-        description:
-            "Hourly atmospheric pressure readings",
-        unit:"hPa"
-    },
+    const reading = {
 
-    altitude:{
-        title:"Altitude History",
-        description:
-            "Hourly altitude readings",
-        unit:"m"
-    }
+        time:now.toLocaleTimeString(
+            "en-IN",
+            {
+                hour:"2-digit",
+                minute:"2-digit",
+                hour12:false
+            }
+        ),
 
-};
+        temperature:sensorData.temperature,
+        humidity:sensorData.humidity,
+        pressure:sensorData.pressure,
+        altitude:sensorData.altitude
+
+    };
+
+    const history = getHistory();
+
+    history.push(reading);
+
+    /*
+       Keep latest 168 readings
+       = 7 days × 24 hours
+    */
+
+    const limitedHistory =
+        history.slice(-168);
+
+    localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(limitedHistory)
+    );
+
+    drawCombinedHistory();
+
+}
 
 
-function drawHistoryChart(){
+/* =====================================================
+   DRAW ALL FOUR PARAMETERS TOGETHER
+===================================================== */
 
-    const history =
-        getHistory();
+function drawCombinedHistory(){
 
+    const history = getHistory();
 
     const svg =
-        document.getElementById(
-            "historyChart"
-        );
-
+        document.getElementById("historyChart");
 
     const axis =
-        document.getElementById(
-            "chartAxis"
-        );
+        document.getElementById("chartAxis");
 
-
-    const description =
-        document.getElementById(
-            "historyDescription"
-        );
-
-
-    if(
-        !svg ||
-        !axis ||
-        !history.length
-    ){
-
+    if(!svg || !axis || !history.length){
         return;
-
     }
 
 
-    const info =
-        metricInfo[selectedMetric];
-
-
-    description.textContent =
-        info.description;
-
-
-    const values =
+    const temperatures =
         history.map(
-            item =>
-                Number(
-                    item[selectedMetric]
-                )
+            item => Number(item.temperature)
         );
 
+    const humidities =
+        history.map(
+            item => Number(item.humidity)
+        );
 
-    const width = 800;
+    const pressures =
+        history.map(
+            item => Number(item.pressure)
+        );
 
-    const height = 300;
-
-    const padding = 35;
-
-
-    const min =
-        Math.min(...values);
-
-    const max =
-        Math.max(...values);
-
-
-    const range =
-        max - min || 1;
+    const altitudes =
+        history.map(
+            item => Number(item.altitude)
+        );
 
 
     /*
-       Create graph points
+       Normalize each parameter separately.
+       The graph therefore compares the trend of
+       all four parameters even though their units
+       and numerical scales are different.
     */
 
-    const points =
-        values.map(
+    const normalizedTemperature =
+        normalizeValues(temperatures);
+
+    const normalizedHumidity =
+        normalizeValues(humidities);
+
+    const normalizedPressure =
+        normalizeValues(pressures);
+
+    const normalizedAltitude =
+        normalizeValues(altitudes);
+
+
+    const width = 800;
+    const height = 300;
+    const padding = 35;
+
+
+    function createPoints(values){
+
+        return values.map(
             (value,index)=>{
 
                 const x =
@@ -1854,31 +1909,35 @@ function drawHistoryChart(){
                         padding * 2
                     );
 
-
                 const y =
                     height -
                     padding -
-                    (
-                        (
-                            value - min
-                        ) /
-                        range
-                    ) *
+                    value *
                     (
                         height -
                         padding * 2
                     );
-
 
                 return `${x},${y}`;
 
             }
         ).join(" ");
 
+    }
 
-    /*
-       Grid lines
-    */
+
+    const temperaturePoints =
+        createPoints(normalizedTemperature);
+
+    const humidityPoints =
+        createPoints(normalizedHumidity);
+
+    const pressurePoints =
+        createPoints(normalizedPressure);
+
+    const altitudePoints =
+        createPoints(normalizedAltitude);
+
 
     svg.innerHTML = `
 
@@ -1892,17 +1951,17 @@ function drawHistoryChart(){
 
         <line
             x1="35"
-            y1="115"
+            y1="112"
             x2="765"
-            y2="115"
+            y2="112"
             stroke="#e7eeec"
         />
 
         <line
             x1="35"
-            y1="195"
+            y1="188"
             x2="765"
-            y2="195"
+            y2="188"
             stroke="#e7eeec"
         />
 
@@ -1915,9 +1974,36 @@ function drawHistoryChart(){
         />
 
         <polyline
-            points="${points}"
+            points="${temperaturePoints}"
             fill="none"
             stroke="#147d78"
+            stroke-width="3"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+        />
+
+        <polyline
+            points="${humidityPoints}"
+            fill="none"
+            stroke="#397bd6"
+            stroke-width="3"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+        />
+
+        <polyline
+            points="${pressurePoints}"
+            fill="none"
+            stroke="#7757d8"
+            stroke-width="3"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+        />
+
+        <polyline
+            points="${altitudePoints}"
+            fill="none"
+            stroke="#39a66b"
             stroke-width="3"
             stroke-linecap="round"
             stroke-linejoin="round"
@@ -1927,19 +2013,14 @@ function drawHistoryChart(){
 
 
     /*
-       Show time labels
+       Show the latest eight time labels.
     */
 
     const labelCount =
-        Math.min(
-            history.length,
-            8
-        );
-
+        Math.min(history.length,8);
 
     const selectedLabels =
         history.slice(-labelCount);
-
 
     axis.innerHTML =
         selectedLabels
@@ -1949,59 +2030,47 @@ function drawHistoryChart(){
             )
             .join("");
 
+
+    /*
+       Show the latest actual values.
+    */
+
+    const latest =
+        history[history.length - 1];
+
+    document.getElementById(
+        "historyTemp"
+    ).textContent =
+        `${Number(latest.temperature).toFixed(1)} °C`;
+
+    document.getElementById(
+        "historyHumidity"
+    ).textContent =
+        `${Number(latest.humidity).toFixed(0)} %`;
+
+    document.getElementById(
+        "historyPressure"
+    ).textContent =
+        `${Number(latest.pressure).toFixed(1)} hPa`;
+
+    document.getElementById(
+        "historyAltitude"
+    ).textContent =
+        `${Number(latest.altitude).toFixed(1)} m`;
+
 }
-
-
-/* =====================================================
-   HISTORY BUTTONS
-===================================================== */
-
-document
-    .querySelectorAll(".history-btn")
-    .forEach(button => {
-
-        button.addEventListener(
-            "click",
-            ()=>{
-
-                document
-                    .querySelectorAll(
-                        ".history-btn"
-                    )
-                    .forEach(
-                        btn =>
-                            btn.classList
-                                .remove("active")
-                    );
-
-
-                button.classList
-                    .add("active");
-
-
-                selectedMetric =
-                    button.dataset.metric;
-
-
-                drawHistoryChart();
-
-            }
-        );
-
-    });
 
 
 /* =====================================================
    INITIAL GRAPH
 ===================================================== */
 
-drawHistoryChart();
+drawCombinedHistory();
 
 
 /* =====================================================
-   DEMO HOURLY STORAGE
-
-   One observation every hour.
+   DEMO:
+   STORE ONE POINT EVERY HOUR
 ===================================================== */
 
 setInterval(
