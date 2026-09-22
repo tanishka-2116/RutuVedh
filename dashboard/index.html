@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>RutuVedh | Local Environment</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <main class="dashboard">
+
+        <!-- Header -->
+        <header class="topbar">
+
+            <div class="brand">
+                <div class="brand-mark">ऋ</div>
+
+                <div>
+                    <h1>RutuVedh</h1>
+                    <p>Local Environment & Micro-Weather</p>
+                </div>
+            </div>
+
+            <div class="connection">
+                <span class="status-dot"></span>
+                <span id="connectionStatus">Demo Mode</span>
+            </div>
+
+        </header>
+
+
+        <!-- Main Weather Overview -->
+        <section class="hero">
+
+            <div class="hero-info">
+
+                <p class="eyebrow">CURRENT ENVIRONMENT</p>
+
+                <h2 id="weatherCondition">
+                    Clear
+                </h2>
+
+                <p class="location">
+                    Local Observation
+                </p>
+
+                <div class="hero-temperature">
+                    <span id="mainTemperature">27</span>
+                    <sup>°C</sup>
+                </div>
+
+                <p class="updated">
+                    Updated <span id="lastUpdated">just now</span>
+                </p>
+
+            </div>
+
+
+            <div class="weather-symbol" aria-hidden="true">
+
+                <div class="sun">
+                    <div class="sun-core"></div>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Local Sensor Data -->
+        <section class="section">
+
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">LOCAL SENSOR</p>
+                    <h3>Environmental Readings</h3>
+                </div>
+            </div>
+
+
+            <div class="metrics-grid">
+
+                <!-- Temperature -->
+                <article class="metric-card">
+
+                    <div class="metric-top">
+                        <span class="metric-icon">°</span>
+                        <span class="metric-label">Temperature</span>
+                    </div>
+
+                    <div class="metric-value">
+                        <span id="temperature">27.4</span>
+                        <span class="unit">°C</span>
+                    </div>
+
+                </article>
+
+
+                <!-- Humidity -->
+                <article class="metric-card">
+
+                    <div class="metric-top">
+                        <span class="metric-icon">%</span>
+                        <span class="metric-label">Humidity</span>
+                    </div>
+
+                    <div class="metric-value">
+                        <span id="humidity">62</span>
+                        <span class="unit">%</span>
+                    </div>
+
+                </article>
+
+
+                <!-- Pressure -->
+                <article class="metric-card">
+
+                    <div class="metric-top">
+                        <span class="metric-icon">P</span>
+                        <span class="metric-label">Pressure</span>
+                    </div>
+
+                    <div class="metric-value">
+                        <span id="pressure">1008</span>
+                        <span class="unit">hPa</span>
+                    </div>
+
+                </article>
+
+
+                <!-- Altitude -->
+                <article class="metric-card">
+
+                    <div class="metric-top">
+                        <span class="metric-icon">↕</span>
+                        <span class="metric-label">Altitude</span>
+                    </div>
+
+                    <div class="metric-value">
+                        <span id="altitude">560</span>
+                        <span class="unit">m</span>
+                    </div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- Simple Trend -->
+        <section class="section">
+
+            <div class="section-heading">
+
+                <div>
+                    <p class="eyebrow">OBSERVATION</p>
+                    <h3>Temperature Trend</h3>
+                </div>
+
+                <span class="range-label">Last readings</span>
+
+            </div>
+
+
+            <div class="chart-card">
+
+                <div class="chart-value">
+                    <span id="chartCurrent">27.4</span>
+                    <small>°C</small>
+                </div>
+
+                <svg
+                    class="chart"
+                    viewBox="0 0 800 220"
+                    preserveAspectRatio="none"
+                    aria-label="Temperature trend chart"
+                >
+
+                    <line x1="0" y1="180" x2="800" y2="180" class="grid-line"/>
+                    <line x1="0" y1="120" x2="800" y2="120" class="grid-line"/>
+                    <line x1="0" y1="60" x2="800" y2="60" class="grid-line"/>
+
+                    <polyline
+                        id="temperatureLine"
+                        class="temperature-line"
+                        points="
+                        0,150
+                        100,138
+                        200,145
+                        300,110
+                        400,120
+                        500,90
+                        600,105
+                        700,72
+                        800,80
+                        "
+                    />
+
+                    <circle cx="800" cy="80" r="5" class="current-point"/>
+
+                </svg>
+
+            </div>
+
+        </section>
+
+
+        <!-- External Weather -->
+        <section class="section external-section">
+
+            <div class="section-heading">
+
+                <div>
+                    <p class="eyebrow">WEATHER DATA</p>
+                    <h3>External Weather</h3>
+                </div>
+
+            </div>
+
+
+            <div class="external-grid">
+
+                <div class="external-item">
+                    <span>Temperature</span>
+                    <strong id="externalTemperature">28 °C</strong>
+                </div>
+
+                <div class="external-item">
+                    <span>Humidity</span>
+                    <strong id="externalHumidity">64 %</strong>
+                </div>
+
+                <div class="external-item">
+                    <span>Sunrise</span>
+                    <strong id="sunrise">06:12</strong>
+                </div>
+
+                <div class="external-item">
+                    <span>Sunset</span>
+                    <strong id="sunset">18:28</strong>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Device -->
+        <section class="device-status">
+
+            <div>
+                <span class="device-title">ESP32</span>
+                <span class="device-subtitle">Environmental Sensor Node</span>
+            </div>
+
+            <div class="device-state">
+                <span class="status-dot"></span>
+                <span id="deviceStatus">Ready</span>
+            </div>
+
+        </section>
+
+
+        <!-- Footer -->
+        <footer>
+
+            <span>RutuVedh</span>
+
+            <span>
+                Smart Local Environment & Micro-Weather System
+            </span>
+
+        </footer>
+
+    </main>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
